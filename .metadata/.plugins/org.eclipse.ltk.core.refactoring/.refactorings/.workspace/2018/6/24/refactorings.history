@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;mysingleDimensionarray&apos; to &apos;mySelfjavalearning&apos;" description="Rename resource &apos;mysingleDimensionarray&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/mysingleDimensionarray" name="mySelfjavalearning" stamp="1528935133956" updateReferences="true"/>
+</session>

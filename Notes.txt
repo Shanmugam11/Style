@@ -1,0 +1,9 @@
+href="https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/"
+Sign - //*[@id="gb_70"]
+Email - //*[@id="identifierId"]
+Next - //*[@id="identifierNext"]/content/span
+password - //*[@id="password"]/div[1]/div/div[1]/input
+Next - //*[@id="passwordNext"]/content/span
+//*[@id="password"]/div[1]/div/div[1]/input
+
+driver.findElement(By.xpath["//*[@href=""https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue"]")

@@ -1,0 +1,91 @@
+package TrainingPrograms;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
+public class Excelread {
+
+//Declaring global variables
+	public static String user_name;
+	public static String pwd;
+	public static String email;
+
+	public static void main(String[] args) {
+		
+					try {
+				File objfile = new File("E:\\Selenium Training\\Training\\Google login.xls"); //File initialization
+				Workbook objworkbook = Workbook.getWorkbook(objfile); //Workbook initialization
+				Sheet objsheet = objworkbook.getSheet("Sheet1"); //Sheet initialization
+				int rows = objsheet.getRows(); //Rows
+				int cols = objsheet.getColumns(); //Columns
+				System.out.println(" The no of rows " + rows);
+				System.out.println(" The no of cols " + cols);
+				String[][] exceldata = new String [rows][cols];
+							
+				
+				for (int row=0;row < rows;row++)
+				{
+					for (int col=0;col < cols;col++)
+					{
+					Cell objcell = objsheet.getCell(col, row);
+					exceldata[row][col] = objcell.getContents();
+					System.out.println("The Value at " + row + "," + col + " is " + exceldata[row][col]);
+																		
+					}
+						
+				}
+				
+//Assigning variables to global variables. Just gave the values in third row.
+				user_name = exceldata[2][2];
+				pwd = exceldata[2][1];
+				email = exceldata[2][0];
+				
+				System.out.println(user_name);
+				System.out.println(pwd);
+				System.out.println(email);
+				
+				System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
+				WebDriver driver = new ChromeDriver();
+
+//Click on Login link
+
+				driver.findElement(By.xpath("//a[@href='http://10.207.182.108:81/opencart/index.php?route=account/login']")).click();
+				Thread.sleep(3000);
+//Passing Email address
+				driver.findElement(By.xpath("//input[@name='email']")).sendKeys(email);
+
+/Passing Password
+				driver.findElement(By.xpath("//input[@name='password']")).sendKeys(pwd);
+				System.out.println("Password entered successfully");
+//Login Button
+				driver.findElement(By.xpath("//input[@value='Login']")).click();
+				Thread.sleep(3000);
+//Get User name
+String userName = driver.findElement(By.xpath("//div[@id='welcome']/a[@href='http://10.207.182.108:81/opencart/index.php?route=account/account']")).getText();
+
+//User name Validation
+				if(userName.equalsIgnoreCase(user_name)) {
+				System.out.println("Authenticated Login");
+				} else {
+				System.out.println("Incorrect Login");
+				}
+//Logout
+				driver.findElement(By.xpath("//div[@id='welcome']/a[@href='http://10.207.182.108:81/opencart/index.php?route=account/logout']")).click();
+				Thread.sleep(3000);
+				driver.findElement(By.xpath("//a[@href='http://10.207.182.108:81/opencart/index.php?route=common/home']")).click();
+				Thread.sleep(3000);
+//Closing the browser
+				driver.quit();
+
+}
+
+}
